@@ -1,0 +1,17 @@
+# IntelliJ
+.idea/
+
+# Node modules
+node_modules/
+
+# Angular build output
+dist/
+.angular/
+
+# Logs
+*.log
+
+# Environment files (si sensibles)
+.env
+"node_modules/" 
+"dist/" 
