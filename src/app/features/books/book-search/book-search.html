@@ -1,0 +1,18 @@
+<h2>Rechercher un livre</h2>
+
+<input type="text" [(ngModel)]="query" placeholder="Titre du livre" />
+<button (click)="search()">Rechercher</button>
+
+@if (results.length > 0) {
+    <ul>
+        @for (book of results; track book.id) {
+            <li>
+                <strong>{{ book.title }}</strong> – {{ book.author }}
+            </li>
+        }
+    </ul>
+} @else {
+    @if (query) {
+        <p>Aucun résultat pour "{{ query }}"</p>
+    }
+}
