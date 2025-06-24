@@ -1,1 +1,8 @@
-<p>login-page works!</p>
+<form (ngSubmit)="onSubmit()">
+    <input [(ngModel)]="username" name="username" placeholder="Username" required />
+    <input [(ngModel)]="password" name="password" placeholder="Password" type="password" required />
+    <button type="submit">Login</button>
+</form>
+@if (error) {
+    <p>Aucun résultat pour "{{ error }}"</p>
+}
