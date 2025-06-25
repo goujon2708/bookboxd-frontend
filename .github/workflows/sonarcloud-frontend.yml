@@ -1,0 +1,41 @@
+name: SonarCloud Analysis - Frontend
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+
+jobs:
+    sonarcloud:
+        name: SonarCloud
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Use Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run tests with coverage
+              run: |
+                  npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+            - name: Install sonar-scanner
+              run: npm install -g sonar-scanner
+
+            - name: Run SonarCloud analysis
+              env:
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              run: |
+                  sonar-scanner \
+                    -Dsonar.projectKey=goujon2708_bookboxd-frontend \
+                    -Dsonar.organization=Arthur Scherrer \
+                    -Dsonar.host.url=https://sonarcloud.io \
+                    -Dsonar.javascript.lcov.reportPaths=coverage/bookboxd-frontend/lcov.info \
+                    -Dsonar.login=${{ secrets.SONAR_TOKEN }}
